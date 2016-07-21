@@ -36,6 +36,7 @@ module.exports = function(RED) {
                 return;
             }
         }
+
         callback();
     }
 
@@ -49,17 +50,25 @@ module.exports = function(RED) {
             //If there is a value missing, the URL is not initialised.
             if (node.wtype === "forecast") {
                 if (node.lat && node.lon) {
-                    url = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=5&units=metric&lat=" + node.lat + "&lon=" + node.lon + "&APPID=" + node.credentials.apikey;
+                    url = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=5&units=metric&lat=" + node.lat + "&lon=" + node.lon; 
                 } else if (node.city && node.country) {
-                    url = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=5&units=metric&q=" + node.city + "," + node.country + "&APPID=" + node.credentials.apikey;
+                    url = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=5&units=metric&q=" + node.city + "," + node.country;
                 }
             } else {
                 if (node.lat && node.lon) {
-                    url = "http://api.openweathermap.org/data/2.5/weather?lat=" + node.lat + "&lon=" + node.lon + "&APPID=" + node.credentials.apikey;
+                    url = "http://api.openweathermap.org/data/2.5/weather?lat=" + node.lat + "&lon=" + node.lon;
                 } else if (node.city && node.country) {
-                    url = "http://api.openweathermap.org/data/2.5/weather?q=" + node.city + "," + node.country + "&APPID=" + node.credentials.apikey;
+                    url = "http://api.openweathermap.org/data/2.5/weather?q=" + node.city + "," + node.country;
                 }
             }
+			
+			if(url && node.language){
+				url += "&lang="+node.language;
+			}
+			
+			if(url){
+				url += "&APPID=" + node.credentials.apikey;
+			}
 
             //If the URL is not initialised, there has been an error with the input data,
             //and a node.error is reported.
@@ -151,6 +160,7 @@ module.exports = function(RED) {
         var country;
         var lat;
         var lon;
+
         if ((!node.credentials) || (!node.credentials.hasOwnProperty("apikey"))) { node.error(RED._("weather.error.no-api-key")); }
 
         this.interval_id = setInterval( function() {
@@ -165,6 +175,11 @@ module.exports = function(RED) {
                 lat = n.lat;
                 lon = n.lon;
             }
+			
+			if(n.language){
+				node.language = n.language;
+			}
+			
             assignmentFunction(node, msg, lat, lon, city, country, function() {
                 weatherPoll(node, msg, function(err) {
                     if (err) {
@@ -199,6 +214,10 @@ module.exports = function(RED) {
         var lon;
         if ((!node.credentials) || (!node.credentials.hasOwnProperty("apikey"))) { node.error(RED._("weather.error.no-api-key")); }
 
+		if(n.language){
+			node.language = n.language;
+		}
+			
         this.on('input', function(msg) {
             if (n.country && n.city) {
                 country = n.country;
@@ -215,6 +234,7 @@ module.exports = function(RED) {
                     country = msg.location.country;
                 }
             }
+
             assignmentFunction(node, msg, lat, lon, city, country, function() {
                 weatherPoll(node, msg, function(err) {
                     if (err) {
