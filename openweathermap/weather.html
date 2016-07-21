@@ -45,6 +45,10 @@
         </br>
         <label for=""><i class="weather-location-type"></i> <span data-i18n="weather.label.longitude"></span></label><input type="text" class="weather-location-input" id="node-input-lon" style="width: 180px; margin-bottom:7px" data-i18n="[placeholder]weather.placeholder.longitude">
     </div>
+	<div class="form-row">
+        <label for="node-input-language"><i class="fa fa-language"></i> <span data-i18n="weather.label.language"></span></label>
+        <input type="text" id="node-input-language" data-i18n="[placeholder]weather.placeholder.language">
+    </div>
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="weather.label.name"></span></label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]weather.placeholder.name">
@@ -62,6 +66,7 @@
             lat: {value:"", validate:function(v) {return ((v>=-90) && (v<=90));} },
             city: {value:""},
             country: {value:""},
+			language: {value: "en"}
         },
         credentials: {
             apikey: {type:"password", required:true}
@@ -195,6 +200,10 @@
         </br>
         <label for=""><i class="weather-location-type"></i> <span data-i18n="weather.label.longitude"></span></label><input type="text" class="weather-location-input" id="node-input-lon" style="width: 180px; margin-bottom:7px" data-i18n="[placeholder]weather.placeholder.longitude">
     </div>
+	<div class="form-row">
+        <label for="node-input-language"><i class="fa fa-language"></i> <span data-i18n="weather.label.language"></span></label>
+        <input type="text" id="node-input-language" data-i18n="[placeholder]weather.placeholder.language">
+    </div>
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="weather.label.name"></label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]weather.placeholder.name">
@@ -211,6 +220,7 @@
             lat: {value:"", validate:function(v) {return ((v>=-90) && (v<=90));} },
             city: {value:""},
             country: {value:""},
+			language: {value:"en"}
         },
         credentials: {
             apikey: {type:"password", required:true}
