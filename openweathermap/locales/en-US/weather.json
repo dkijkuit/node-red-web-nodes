@@ -12,14 +12,16 @@
             "country": "Country",
             "latitude": "Latitude",
             "longitude": "Longitude",
-            "apikey": "API Key"
+            "apikey": "API Key",
+			"language": "Language code"
         },
         "placeholder": {
             "name": "Name",
             "city": "City",
             "country": "Country",
             "latitude": "Latitude",
-            "longitude": "Longitude"
+            "longitude": "Longitude",
+			"language": "Language code"
         },
         "status": {
             "requesting": "requesting"
